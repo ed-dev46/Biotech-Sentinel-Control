@@ -14,9 +14,9 @@ public abstract class Specimen
         set
         {
             _temperatureC = TemperatureC;
-            if (_temperatureC > -10 && OnTemperatureExceed != null)
+            if (_temperatureC > -10)
             {
-                OnTemperatureExceed(Name, _temperatureC);
+                OnTemperatureExceed?.Invoke(Name, _temperatureC);
             }
         }
     }

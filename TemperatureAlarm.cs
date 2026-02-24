@@ -1,14 +1,24 @@
-﻿namespace BiotechSentinelControl;
+﻿using System.Diagnostics;
 
-public delegate void CoolHandler();
+namespace BiotechSentinelControl;
+
 public class TemperatureAlarm
 {
-    public event CoolHandler OnAlarmTrigger;
 
-    public void NotifySecurity()
+    public void NotifySecurity(string name, double temperatureC)
     {
-        Console.WriteLine("ALERT! TEMPERATURE EXCEED\nTURNING ON COOLING SYSTEM...");
-        OnAlarmTrigger?.Invoke();
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+        Console.ForegroundColor = ConsoleColor.Yellow;
+
+        Console.WriteLine($"ALERT FOR SPECIMEN {name.ToUpper()}");
+        Console.WriteLine($"TEMPERATURE EXCEED -10C - CURRENT: {temperatureC}C");
+
+        Console.BackgroundColor = ConsoleColor.White;
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
+
+        Console.WriteLine("ACTIVATING COOLING DOWN SYSTEM...");
+
+        Console.ResetColor();
     }
 
 }

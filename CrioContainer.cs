@@ -26,9 +26,4 @@ public class CrioContainer<T> where T : Specimen
 
         return specimen;
     }
-
-    private void CoolSpecimen(T specimen)
-    {
-        specimen.TemperatureC = -15;
-    }
 }
