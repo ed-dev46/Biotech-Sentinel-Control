@@ -1,6 +1,6 @@
 ﻿namespace BiotechSentinelControl;
 
-public delegate void TemperatureHandler(string name, double temperatureC);
+public delegate void TemperatureHandler(Specimen specimen);
 public abstract class Specimen
 {
 
@@ -13,10 +13,10 @@ public abstract class Specimen
         get => _temperatureC;
         set
         {
-            _temperatureC = TemperatureC;
-            if (_temperatureC > -10)
+            _temperatureC = value;
+            if (_temperatureC > -10.0)
             {
-                OnTemperatureExceed?.Invoke(Name, _temperatureC);
+                OnTemperatureExceed?.Invoke(this);
             }
         }
     }
