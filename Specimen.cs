@@ -1,10 +1,12 @@
 ﻿namespace BiotechSentinelControl;
 
 public delegate void TemperatureHandler(Specimen specimen);
+public delegate void SecurityAlertHandler();
 public abstract class Specimen
 {
 
     public event TemperatureHandler OnTemperatureExceed;
+    public static event SecurityAlertHandler OnSecurityAlert;
 
     public string Id { get; }
     public string Name { get; set; }
@@ -17,6 +19,7 @@ public abstract class Specimen
             if (_temperatureC > -10.0)
             {
                 OnTemperatureExceed?.Invoke(this);
+                OnSecurityAlert?.Invoke();
             }
         }
     }
@@ -25,7 +28,13 @@ public abstract class Specimen
     {
         Id = id;
         Name = name;
-        TemperatureC = temperatureC;
+        if (temperatureC > -10.0)
+        {
+            throw new ArgumentException("THE TEMPERATURE CAN NOT EXCEED -10.0C");
+        } else
+        {
+            _temperatureC = temperatureC;
+        }
     }
 
     public override string ToString()

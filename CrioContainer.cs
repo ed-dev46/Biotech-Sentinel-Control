@@ -14,6 +14,7 @@ public class CrioContainer<T> where T : Specimen
         } else
         {
             specimen.Name = specimen.Name.ToLower();
+            specimen.OnTemperatureExceed += CoolingDown;
             _crioContainer.Add(specimen);
         }
     }
@@ -31,7 +32,9 @@ public class CrioContainer<T> where T : Specimen
     {
         Console.BackgroundColor = ConsoleColor.White;
         Console.ForegroundColor = ConsoleColor.DarkCyan;
-        Console.WriteLine($"COOLING DOWN SPECIMEN {specimen.Name}");
+
+        Console.WriteLine($"ACTIVATING COOLING DOWN SYSTEM...");
+        Console.WriteLine($"COOLING DOWN SPECIMEN {specimen.Name.ToUpper()}");
 
         specimen.TemperatureC = -20.0;
 
@@ -41,5 +44,15 @@ public class CrioContainer<T> where T : Specimen
         Console.WriteLine($"ACTUAL: {specimen.TemperatureC}C");
         
         Console.ResetColor();
+    }
+
+    public override string ToString()
+    {
+        string result = "CRIO CONTAINER CONTENTS:\n\n";
+        foreach (var virus in _crioContainer)
+        {
+            result += $"Id: {virus.Id}\nName: {virus.Name}\nTemperature: {virus.TemperatureC}C\n\n";
+        }
+        return result;
     }
 }
