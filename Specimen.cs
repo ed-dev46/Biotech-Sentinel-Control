@@ -18,8 +18,8 @@ public abstract class Specimen
             _temperatureC = value;
             if (_temperatureC > -10.0)
             {
-                OnTemperatureExceed?.Invoke(this);
                 OnSecurityAlert?.Invoke();
+                OnTemperatureExceed?.Invoke(this);
             }
         }
     }

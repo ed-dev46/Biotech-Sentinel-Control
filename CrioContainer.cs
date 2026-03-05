@@ -14,6 +14,7 @@ public class CrioContainer<T> where T : Specimen
         } else
         {
             specimen.Name = specimen.Name.ToLower();
+            specimen.OnTemperatureExceed += TemperatureAlarm.TemperatureLog;
             specimen.OnTemperatureExceed += CoolingDown;
             _crioContainer.Add(specimen);
         }
